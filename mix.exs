@@ -8,7 +8,9 @@ defmodule ExLicense.MixProject do
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package()
+      package: package(),
+      description: "Utility to insert or check license headers",
+      name: "ExLicense"
     ]
   end
 
