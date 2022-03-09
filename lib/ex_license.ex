@@ -8,6 +8,14 @@ defmodule ExLicense do
 
   @doc """
   Return the SPDX License identifier
+
+  ## Examples
+
+      iex> ExLicense.spdx_id(:mit)
+      "MIT"
+
+      iex> ExLicense.spdx_id(:agpl_v3)
+      "AGPL-3.0-or-later"
   """
   @spec spdx_id(available_license()) :: String.t()
   def spdx_id(:mit), do: "MIT"
