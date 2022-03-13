@@ -12,7 +12,7 @@ $ mix insert_license --license mit
 $ mix insert_license --verify --license mit
 ```
 
-Here, the `--license` option takes one of these values `mit,agpl, gpl, lgpl, mozilla, apache, boost`
+Here, the `--license` option takes one of these values `mit, agpl, gpl, lgpl, mozilla, apache, boost`
 
 ## Installation
 
