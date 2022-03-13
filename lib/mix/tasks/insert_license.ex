@@ -9,6 +9,7 @@ defmodule Mix.Tasks.InsertLicense do
         case cast(String.upcase(license)) do
           {:ok, license} ->
             verify(license)
+
           :error ->
             Mix.shell().error("you pass an invalid license")
             Mix.shell().info("you should pass 'mit,agpl, gpl, lgpl, mozilla, apache, boost'")
@@ -18,17 +19,18 @@ defmodule Mix.Tasks.InsertLicense do
         case cast(String.upcase(license)) do
           {:ok, license} ->
             insert(license)
+
           :error ->
             Mix.shell().error("you pass an invalid license")
             Mix.shell().info("you should pass 'mit,agpl, gpl, lgpl, mozilla, apache, boost'")
-
         end
-      
+
       _ ->
-        Mix.shell().info("You have to pass --license flag and --verify if you can check all the files")
+        Mix.shell().info(
+          "You have to pass --license flag and --verify if you can check all the files"
+        )
     end
   end
-
 
   defp cast("MIT"), do: {:ok, :mit}
   defp cast("AGPL"), do: {:ok, :agpl_v3}
