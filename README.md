@@ -16,7 +16,7 @@ Here, the `--license` option takes one of these values `mit, agpl, gpl, lgpl, mo
 
 ## Installation
 
-Install from [Hex](https://hex.pm/ex_license), the package can be installed
+Install from [Hex](https://hex.pm/packages/ex_license), the package can be installed
 by adding `ex_license` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -39,6 +39,4 @@ It supports the following license
 - [x] [apache_v2](https://spdx.org/licenses/Apache-2.0.html)
 - [x] [boost_v1](https://spdx.org/licenses/BSL-1.0.html)
 
-Documentation can be generated with [ExDoc](https://github.com/samuelmanzanera/ex_license)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_license](https://hexdocs.pm/ex_license).
+Documentation published on [HexDocs](https://hexdocs.pm/ex_license). 
