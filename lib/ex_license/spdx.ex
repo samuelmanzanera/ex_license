@@ -1,5 +1,7 @@
 defmodule ExLicense.SPDX do
-  @moduledoc false
+  @moduledoc """
+  Manage SPDX headers and licenses
+  """
 
   @type available_license() ::
           :mit | :agpl_v3 | :gpl_v3 | :lgpl_v3 | :mozilla_v2 | :apache_v2 | :boost_v1
