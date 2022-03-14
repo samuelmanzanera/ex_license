@@ -3,26 +3,52 @@ defmodule ExLicense do
   Documentation for `ExLicense`.
   """
 
-  @type available_license() ::
-          :mit | :agpl_v3 | :gpl_v3 | :lgpl_v3 | :mozilla_v2 | :apache_v2 | :boost_v1
+  alias __MODULE__.SPDX
 
   @doc """
-  Return the SPDX License identifier
-
-  ## Examples
-
-      iex> ExLicense.spdx_id(:mit)
-      "MIT"
-
-      iex> ExLicense.spdx_id(:agpl_v3)
-      "AGPL-3.0-or-later"
+  Insert the header with corresponding license
   """
-  @spec spdx_id(available_license()) :: String.t()
-  def spdx_id(:mit), do: "MIT"
-  def spdx_id(:agpl_v3), do: "AGPL-3.0-or-later"
-  def spdx_id(:gpl_v3), do: "GPL-3.0+"
-  def spdx_id(:lgpl_v3), do: "LGPL-3.0+"
-  def spdx_id(:mozilla_v2), do: "MPL-2.0"
-  def spdx_id(:apache_v2), do: "Apache-2.0"
-  def spdx_id(:boost_v1), do: "BSL-1.0"
+  @spec insert_header(SPDX.available_license()) :: :ok
+  def insert_header(license) do
+    files = lib_files()
+    license_id = SPDX.id(license)
+
+    files
+    |> Enum.reject(&have_license_header?(&1, license_id))
+    |> Enum.each(&insert_license_header(&1, license_id))
+  end
+
+  defp lib_files do
+    [File.cwd!(), "/lib/**/*.ex"]
+    |> Path.join()
+    |> Path.wildcard()
+    |> Enum.reject(&String.contains?(&1, "lib/mix"))
+  end
+
+  defp have_license_header?(filename, license_id) do
+    content = File.read!(filename)
+    if String.starts_with?(content, SPDX.comment_base()) do
+      if !String.starts_with?(content, SPDX.comment(license_id)) do
+        IO.warn "Different SPDX License header in #{filename}"
+      end
+      true
+    else
+      false
+    end
+  end
+
+  defp insert_license_header(filename, license_id) do
+    content = File.read!(filename)
+    File.write(filename, [SPDX.comment(license_id), "\n", content])
+  end
+
+  @doc """
+  Determine if the files have the license header for the given license
+  """
+  @spec with_header?(SPDX.available_license()) :: boolean()
+  def with_header?(license) do
+    files = lib_files()
+    license_id = SPDX.id(license)
+    Enum.all?(files, &have_license_header?(&1, license_id))
+  end
 end
